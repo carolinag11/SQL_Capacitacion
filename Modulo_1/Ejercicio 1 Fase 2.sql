@@ -19,6 +19,7 @@ FROM "db-analytics-prod"."fixed_cwp"
 where act_cust_typ_nm='Residencial'
 and date_trunc('month', date(dt))>=date('2022-01-01') 
 and date(dt)=date_trunc('month', date(dt))
+  and pd_bb_prod_cd is not null
 order by 1 asc
 )
 

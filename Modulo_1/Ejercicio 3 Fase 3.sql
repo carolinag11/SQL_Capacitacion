@@ -6,7 +6,7 @@ date_trunc('month', date(dt)) as fecha
 FROM "db-analytics-prod"."fixed_cwp" 
 where act_cust_typ_nm='Residencial'
 and date_trunc('month', date(dt))>=date('2022-01-01') 
-and fi_outst_age <90 or fi_outst_age is null 
+and (fi_outst_age <90 or fi_outst_age is null)
 )
 ,
 Dx_40days as(
@@ -25,8 +25,10 @@ and order_type='DEACTIVATION'
 )
 
 select
+fecha,
 count(distinct act_acct_cd)
 from active a 
 inner join Dx_40days b
 on a.act_acct_cd=b.account_id
---and a.fecha=b.int_date
+and a.fecha=b.int_date
+group by 1
